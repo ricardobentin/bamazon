@@ -1,0 +1,10 @@
+INSERT INTO products (product_name, price, stock) values ('Diapers', 19.99, 100);
+INSERT INTO products (product_name, price, stock) values ('Wipes', 4.99, 500);
+INSERT INTO products (product_name, price, stock) values ('Apple Sauce Pouch', 2.99, 1000);
+INSERT INTO products (product_name, price, stock) values ('Kid Plate', 10.99, 500);
+INSERT INTO products (product_name, price, stock) values ('Kid Cup', 1.99, 500);
+INSERT INTO products (product_name, price, stock) values ('Kid Cutlery', 2.99, 500);
+INSERT INTO products (product_name, price, stock) values ('Stuffed Animal', 5.99, 300);
+INSERT INTO products (product_name, price, stock) values ('Lego Set', 49.99, 100);
+INSERT INTO products (product_name, price, stock) values ('Sports Ball', 10.99, 100);
+INSERT INTO products (product_name, price, stock) values ('Tablet', 199.99, 50);
