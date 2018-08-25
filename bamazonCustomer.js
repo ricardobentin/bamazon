@@ -54,15 +54,23 @@ let shop = function() {
           }
           console.log("this is chosen item.stock, ", chosenItem.stock);
           if (err) throw err;
-          if (answer.quantity_to_buy > results[1]) {
+          if (answer.quantity_to_buy > parseInt(chosenItem.stock)) {
             console.log(
               "Insufficient Quantity! Please Select Less of This Product Or Select a New Product and Quantity."
             );
             shop();
           }
-          console.log("This is results: ", results);
+          connection.query(
+            `SELECT stock from products where product_name = ${chosenItem.product_name} AND SET stock = ${parseInt(chosenItem.stock)}-${parseInt(answer.quantity_to_buy)}`,
+            function(err){
+              if (error) throw err;
+            
+            }
           console.log("Your Order Was Submitted!");
           shop();
+          }  
+        );
+          
         }
       );
     });
