@@ -37,9 +37,33 @@ let shop = function() {
       }
     ])
     .then(function(answer) {
-      console.log("This is the answer from inquirer: ", answer);
-      console.log("Answers is of this type: ", typeof answer);
-      console.log("answers.id_to_buy: ", answer.id_to_buy);
-      console.log("answers.quantity_to_buy: ", answer.quantity_to_buy);
+      // console.log("This is the answer from inquirer: ", answer);
+      // console.log("Answers is of this type: ", typeof answer);
+      // console.log("answers.id_to_buy: ", answer.id_to_buy);
+      // console.log("answers.quantity_to_buy: ", answer.quantity_to_buy);
+      connection.query(
+        `SELECT product_name, stock from products where item_id = ${
+          answer.id_to_buy
+        } AND ${answer.quantity_to_buy} > 0`,
+        function(err, results) {
+          var chosenItem;
+          for (var i = 0; i < results.length; i++) {
+            if (results[i].item_name === answer.choice) {
+              chosenItem = results[i];
+            }
+          }
+          console.log("this is chosen item.stock, ", chosenItem.stock);
+          if (err) throw err;
+          if (answer.quantity_to_buy > results[1]) {
+            console.log(
+              "Insufficient Quantity! Please Select Less of This Product Or Select a New Product and Quantity."
+            );
+            shop();
+          }
+          console.log("This is results: ", results);
+          console.log("Your Order Was Submitted!");
+          shop();
+        }
+      );
     });
 };
