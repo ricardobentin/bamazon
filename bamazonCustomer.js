@@ -42,9 +42,9 @@ let shop = function() {
       // console.log("answers.id_to_buy: ", answer.id_to_buy);
       // console.log("answers.quantity_to_buy: ", answer.quantity_to_buy);
       connection.query(
-        `SELECT product_name, stock from products where item_id = ${
-          answer.id_to_buy
-        } AND ${answer.quantity_to_buy} > 0`,
+        `SELECT * from products where item_id = ${answer.id_to_buy} AND ${
+          answer.quantity_to_buy
+        } > 0`,
         function(err, results) {
           var chosenItem;
           for (var i = 0; i < results.length; i++) {
@@ -65,6 +65,14 @@ let shop = function() {
             );
             shop();
           } else {
+            let costToCustomer =
+              parseInt(answer.quantity_to_buy) * parseFloat(chosenItem.price);
+            console.log(
+              "this is quantity to buy",
+              parseInt(answer.quantity_to_buy)
+            );
+            console.log("This is the price", parseFloat(chosenItem.price));
+            console.log("This is the cost to the customer", costToCustomer);
             connection.query(
               `UPDATE products SET stock = ${parseInt(
                 chosenItem.stock
@@ -74,6 +82,11 @@ let shop = function() {
               function(err, results) {
                 if (error) throw err;
                 console.log("Your Order Was Submitted!");
+                console.log(
+                  `Your Total Cost for ${answer.quantity_to_buy} units of ${
+                    chosenItem.product_name
+                  } is $ ${costToCustomer}`
+                );
                 shop();
               }
             );
