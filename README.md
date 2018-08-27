@@ -3,6 +3,8 @@ Bamazon is a fictitious store front that allows customers to place orders for pr
 
 To get started, run npm install to load the required packages.
 
+To set up the database, please review the schema and seed files.
+
 From there, run node bamazonCustomer.js in your terminal.
 
 You will be presented with the entire list of products available for purchase as well as a prompt for the ID of the item you would like to purchase and the quantity.
