@@ -56,6 +56,7 @@ let shop = function() {
             "this is chosenItem.product_name: ",
             chosenItem.product_name
           );
+          console.log("this is chosenItem", chosenItem);
           console.log("this is chosenItem.stock: ", chosenItem.stock);
           if (err) throw err;
           if (answer.quantity_to_buy > parseInt(chosenItem.stock)) {
@@ -65,14 +66,13 @@ let shop = function() {
             shop();
           } else {
             connection.query(
-              `SELECT stock from products where product_name = ${
-                chosenItem.product_name
-              } AND SET stock = ${parseInt(chosenItem.stock)}-${parseInt(
-                answer.quantity_to_buy
-              )}`,
+              `UPDATE products SET stock = ${parseInt(
+                chosenItem.stock
+              )}-${parseInt(answer.quantity_to_buy)} where item_id = ${
+                answer.id_to_buy
+              }`,
               function(err, results) {
                 if (error) throw err;
-
                 console.log("Your Order Was Submitted!");
                 shop();
               }
@@ -82,4 +82,3 @@ let shop = function() {
       );
     });
 };
-  
