@@ -37,10 +37,6 @@ let shop = function() {
       }
     ])
     .then(function(answer) {
-      // console.log("This is the answer from inquirer: ", answer);
-      // console.log("Answers is of this type: ", typeof answer);
-      // console.log("answers.id_to_buy: ", answer.id_to_buy);
-      // console.log("answers.quantity_to_buy: ", answer.quantity_to_buy);
       connection.query(
         `SELECT * from products where item_id = ${answer.id_to_buy} AND ${
           answer.quantity_to_buy
@@ -52,12 +48,6 @@ let shop = function() {
               chosenItem = results[i];
             }
           }
-          // console.log(
-          //   "this is chosenItem.product_name: ",
-          //   chosenItem.product_name
-          // );
-          // console.log("this is chosenItem", chosenItem);
-          // console.log("this is chosenItem.stock: ", chosenItem.stock);
           if (err) throw err;
           if (answer.quantity_to_buy > parseInt(chosenItem.stock)) {
             console.log(
@@ -67,22 +57,11 @@ let shop = function() {
           } else {
             let costToCustomer =
               parseInt(answer.quantity_to_buy) * parseFloat(chosenItem.price);
-            // console.log(
-            //   "this is quantity to buy",
-            //   parseInt(answer.quantity_to_buy)
-            // );
-            // console.log("This is the price", parseFloat(chosenItem.price));
-            // console.log("This is the cost to the customer", costToCustomer);
-            let newStock = parseInt(chosenItem.stock
-            )-parseInt(answer.quantity_to_buy)
-            // console.log("this is new stock:", newStock);
+            let newStock =
+              parseInt(chosenItem.stock) - parseInt(answer.quantity_to_buy);
             connection.query(
-              // `UPDATE products SET stock = ${parseInt(
-              //   chosenItem.stock
-              // )}-${parseInt(answer.quantity_to_buy)} where item_id = ${
-              //   answer.id_to_buy
-              // }`,
-              `UPDATE products SET ? where ?`, [
+              `UPDATE products SET ? where ?`,
+              [
                 {
                   stock: newStock
                 },
